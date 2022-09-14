@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.shift.makhov.shop.component.WareMapper;
 import ru.shift.makhov.shop.model.WareDto;
 import ru.shift.makhov.shop.repository.ShopRepository;
 import ru.shift.makhov.shop.repository.model.ShopEntity;
 import ru.shift.makhov.shop.service.ShopService;
+
+import java.util.Optional;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -24,14 +27,17 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public ResponseEntity<WareDto> addWare(WareDto wareDto) {
+    public WareDto addWare(WareDto wareDto) throws ResponseStatusException {
+        if (shopRepository.existsById(wareDto.getSerialNumber()))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "This serial number already busy");
         ShopEntity response = shopRepository.save(wareMapper.mapToShopEntity(wareDto));
-        return ResponseEntity.status(HttpStatus.CREATED).body(wareMapper.mapToWareDto(response));
+        return wareMapper.mapToWareDto(response);
     }
 
-    @Override // TODO: 14.09.2022
-    public ResponseEntity<WareDto> findBySerialNumber(Long serialNumber){
-        ShopEntity response = shopRepository.findById(serialNumber).get();
-        return ResponseEntity.ok(wareMapper.mapToWareDto(response));
+    @Override
+    public WareDto findBySerialNumber(Long serialNumber) throws ResponseStatusException {
+        Optional<ShopEntity> response = shopRepository.findById(serialNumber);
+        if (!response.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
+        return wareMapper.mapToWareDto(response.get());
     }
 }

@@ -1,10 +1,11 @@
 package ru.shift.makhov.shop.service;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 import ru.shift.makhov.shop.model.WareDto;
 
 public interface ShopService {
-    ResponseEntity<WareDto> addWare(WareDto wareDto);
+    WareDto addWare(WareDto wareDto) throws ResponseStatusException;
 
-    ResponseEntity<WareDto> findBySerialNumber(Long serialNumber);
+    WareDto findBySerialNumber(Long serialNumber) throws ResponseStatusException;
 }
