@@ -1,0 +1,1 @@
+INSERT INTO shop VALUES('1', 'Hello', 1, '1.0', '1', 1.0);

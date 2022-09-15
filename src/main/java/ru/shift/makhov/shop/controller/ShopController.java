@@ -44,14 +44,14 @@ public class ShopController {
     @Operation(summary = "Get ware by serial number", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "Found ware")
     @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
-    @GetMapping("find_ware/serial_number/{serialNumber}")
+    @GetMapping("/find_ware/serial_number/{serialNumber}")
     public ResponseEntity<WareDto> getWareBySerialNumber(@PathVariable String serialNumber) {
         return ResponseEntity.status(HttpStatus.OK).body(shopService.findBySerialNumber(serialNumber));
     }
 
     @Operation(summary = "Get wares by category", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "Found wares")
-    @GetMapping("find_ware/category/{category}")
+    @GetMapping("/find_ware/category/{category}")
     public ResponseEntity<List<WareDto>> getWaresByCategory(@PathVariable String category){
         return ResponseEntity.status(HttpStatus.OK).body(shopService.findByCategory(category));
     }
