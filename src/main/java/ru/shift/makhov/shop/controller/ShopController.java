@@ -25,20 +25,28 @@ public class ShopController {
     }
 
     @PostMapping
-    @Operation(summary = "Post ware", tags = "Shop")
+    @Operation(summary = "Add ware", tags = "Shop")
     @ApiResponse(responseCode = "201", description = "The ware is saved")
     @ApiResponse(responseCode = "409", description = "This serial number is already taken", content = @Content)
-    public ResponseEntity<WareDto> postWare(WareDto wareDto) {
+    public ResponseEntity<WareDto> addWare(WareDto wareDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(shopService.addWare(wareDto));
+    }
+
+    @PutMapping
+    @Operation(summary = "Edit ware", tags = "Shop")
+    @ApiResponse(responseCode = "200", description = "The ware is edited")
+    @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
+    public ResponseEntity<WareDto> editWare(WareDto wareDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(shopService.editWare(wareDto));
     }
 
     @Operation(summary = "Delete ware by serial number", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "Deleted ware", content = @Content)
     @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
     @DeleteMapping
-    public ResponseEntity<String> deleteWare(String serialNumber){
+    public ResponseEntity<String> deleteWare(String serialNumber) {
         shopService.deleteWare(serialNumber);
-        return ResponseEntity.ok("Deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
     }
 
     @Operation(summary = "Get ware by serial number", tags = "Shop")
@@ -52,7 +60,7 @@ public class ShopController {
     @Operation(summary = "Get wares by category", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "Found wares")
     @GetMapping("/find_ware/category/{category}")
-    public ResponseEntity<List<WareDto>> getWaresByCategory(@PathVariable String category){
+    public ResponseEntity<List<WareDto>> getWaresByCategory(@PathVariable String category) {
         return ResponseEntity.status(HttpStatus.OK).body(shopService.findByCategory(category));
     }
 

@@ -17,21 +17,21 @@ import javax.persistence.*;
 public class ShopEntity {
 
     @Id
-    @Column(name = "serial_number", nullable = false)
+    @Column(name = "SERIAL_NUMBER", nullable = false)
     private String serialNumber;
 
-    @Column(name = "category", nullable = false)
+    @Column(name = "CATEGORY", nullable = false)
     private String category;
 
-    @Column(name = "manufacturer", nullable = false)
+    @Column(name = "MANUFACTURER", nullable = false)
     private String manufacturer;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "PRICE", nullable = false)
     private Double price;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name = "AMOUNT", nullable = false)
     private Long amount;
 
-    @Column(name = "additional_information")
+    @Column(name = "ADDITIONAL_INFORMATION")
     private String additionalInfo;
 }

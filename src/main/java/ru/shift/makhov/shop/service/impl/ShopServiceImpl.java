@@ -37,17 +37,25 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public WareDto findBySerialNumber(String serialNumber) throws ResponseStatusException {
-        Optional<ShopEntity> response = shopRepository.findById(serialNumber);
-        if (!response.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
-        return wareMapper.mapToWareDto(response.get());
+    public WareDto editWare(WareDto wareDto) throws ResponseStatusException {
+        if (!shopRepository.existsById(wareDto.getSerialNumber()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
+        ShopEntity response = shopRepository.save(wareMapper.mapToShopEntity(wareDto));
+        return wareMapper.mapToWareDto(response);
     }
 
     @Override
     public void deleteWare(String serialNumber) throws ResponseStatusException {
         if (!shopRepository.existsById(serialNumber))
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Not found ware");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
         shopRepository.deleteById(serialNumber);
+    }
+
+    @Override
+    public WareDto findBySerialNumber(String serialNumber) throws ResponseStatusException {
+        Optional<ShopEntity> response = shopRepository.findById(serialNumber);
+        if (!response.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
+        return wareMapper.mapToWareDto(response.get());
     }
 
     @Override
