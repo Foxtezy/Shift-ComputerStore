@@ -8,13 +8,13 @@ import ru.shift.makhov.shop.repository.model.ShopEntity;
 public class WareMapper {
 
     public ShopEntity mapToShopEntity(WareDto wareDto) {
-        return new ShopEntity(wareDto.getSerialNumber(), wareDto.getType(),
+        return new ShopEntity(wareDto.getSerialNumber(), wareDto.getCategory(),
                 wareDto.getManufacturer(), wareDto.getPrice(),
                 wareDto.getAmount(), wareDto.getAdditionalInfo());
     }
 
     public WareDto mapToWareDto(ShopEntity shopEntity) {
-        return new WareDto(shopEntity.getSerialNumber(), shopEntity.getType(),
+        return new WareDto(shopEntity.getSerialNumber(), shopEntity.getCategory(),
                 shopEntity.getManufacturer(), shopEntity.getPrice(),
                 shopEntity.getAmount(), shopEntity.getAdditionalInfo());
     }

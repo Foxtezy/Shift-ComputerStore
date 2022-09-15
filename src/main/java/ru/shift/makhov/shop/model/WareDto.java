@@ -7,9 +7,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class WareDto {
 
-    private Long serialNumber;
+    private String serialNumber;
 
-    private String type;
+    private String category;
 
     private String manufacturer;
 

@@ -18,10 +18,10 @@ public class ShopEntity {
 
     @Id
     @Column(name = "serial_number", nullable = false)
-    private Long serialNumber;
+    private String serialNumber;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "category", nullable = false)
+    private String category;
 
     @Column(name = "manufacturer", nullable = false)
     private String manufacturer;

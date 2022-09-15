@@ -11,7 +11,9 @@ import ru.shift.makhov.shop.repository.ShopRepository;
 import ru.shift.makhov.shop.repository.model.ShopEntity;
 import ru.shift.makhov.shop.service.ShopService;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ShopServiceImpl implements ShopService {
@@ -35,9 +37,22 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public WareDto findBySerialNumber(Long serialNumber) throws ResponseStatusException {
+    public WareDto findBySerialNumber(String serialNumber) throws ResponseStatusException {
         Optional<ShopEntity> response = shopRepository.findById(serialNumber);
         if (!response.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found ware");
         return wareMapper.mapToWareDto(response.get());
+    }
+
+    @Override
+    public void deleteWare(String serialNumber) throws ResponseStatusException {
+        if (!shopRepository.existsById(serialNumber))
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Not found ware");
+        shopRepository.deleteById(serialNumber);
+    }
+
+    @Override
+    public List<WareDto> findByCategory(String category) throws ResponseStatusException {
+        return shopRepository.getShopEntityByCategory(category).stream().
+                map(wareMapper::mapToWareDto).collect(Collectors.toList());
     }
 }
