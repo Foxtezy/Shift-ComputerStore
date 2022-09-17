@@ -32,6 +32,7 @@ public class WareDto {
     @Schema(example = "1", required = true)
     private Long amount;
 
+    @NotNull
     @Schema(example = "14 inch", required = true)
     private String additionalInfo;
 

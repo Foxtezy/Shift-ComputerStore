@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Shop")
+@Table(name = "SHOP")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,6 +32,6 @@ public class ShopEntity {
     @Column(name = "AMOUNT", nullable = false)
     private Long amount;
 
-    @Column(name = "ADDITIONAL_INFORMATION")
+    @Column(name = "ADDITIONAL_INFORMATION", nullable = false)
     private String additionalInfo;
 }

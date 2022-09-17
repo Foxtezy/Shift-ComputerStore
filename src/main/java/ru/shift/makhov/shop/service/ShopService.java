@@ -1,11 +1,12 @@
 package ru.shift.makhov.shop.service;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.shift.makhov.shop.model.WareDto;
 
 import java.util.List;
 
+@Service
 public interface ShopService {
     WareDto addWare(WareDto wareDto) throws ResponseStatusException;
 
