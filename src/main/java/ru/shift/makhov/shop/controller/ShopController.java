@@ -24,7 +24,7 @@ public class ShopController {
         this.shopService = shopService;
     }
 
-    @PostMapping
+    @PostMapping("/add_ware")
     @Operation(summary = "Add ware", tags = "Shop")
     @ApiResponse(responseCode = "201", description = "The ware is saved")
     @ApiResponse(responseCode = "409", description = "This serial number is already taken", content = @Content)
@@ -32,7 +32,7 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.CREATED).body(shopService.addWare(wareDto));
     }
 
-    @PutMapping
+    @PutMapping("/edit_ware")
     @Operation(summary = "Edit ware", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "The ware is edited")
     @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
