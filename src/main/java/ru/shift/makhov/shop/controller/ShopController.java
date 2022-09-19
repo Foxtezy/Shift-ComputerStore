@@ -28,7 +28,7 @@ public class ShopController {
     @Operation(summary = "Add ware", tags = "Shop")
     @ApiResponse(responseCode = "201", description = "The ware is saved")
     @ApiResponse(responseCode = "409", description = "This serial number is already taken", content = @Content)
-    public ResponseEntity<WareDto> addWare(WareDto wareDto) {
+    public ResponseEntity<WareDto> addWare(@RequestBody WareDto wareDto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(shopService.addWare(wareDto));
     }
 
@@ -36,17 +36,16 @@ public class ShopController {
     @Operation(summary = "Edit ware", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "The ware is edited")
     @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
-    public ResponseEntity<WareDto> editWare(WareDto wareDto) {
+    public ResponseEntity<WareDto> editWare(@RequestBody WareDto wareDto) {
         return ResponseEntity.status(HttpStatus.OK).body(shopService.editWare(wareDto));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete_ware/{serialNumber}")
     @Operation(summary = "Delete ware by serial number", tags = "Shop")
     @ApiResponse(responseCode = "200", description = "Deleted ware", content = @Content)
     @ApiResponse(responseCode = "404", description = "Ware not found", content = @Content)
-    public ResponseEntity<String> deleteWare(String serialNumber) {
+    public void deleteWare(@PathVariable String serialNumber) {
         shopService.deleteWare(serialNumber);
-        return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
     }
 
     @GetMapping("/find_ware/serial_number/{serialNumber}")
