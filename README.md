@@ -1,4 +1,5 @@
 # Shift-ComputerStore
+Тестовое задание для лаборатории ШИФТ
 ## Сборка
 Обычный maven проект.
 ## Настройка
@@ -10,3 +11,6 @@
 ## Контакты
 Почта: nmahov2003@gmail.com  
 Телеграм: @Foxtezy
+
+## Стек
+Java 11, Spring Framework, H2 database
